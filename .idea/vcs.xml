@@ -4,5 +4,6 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/session1-java-coban" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/session2-condition-loop" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/session3-array-function-loop" vcs="Git" />
   </component>
 </project>
