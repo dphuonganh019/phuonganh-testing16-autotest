@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/oop" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/session1-java-coban" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/session2-condition-loop" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/session3-array-function-loop" vcs="Git" />
