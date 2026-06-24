@@ -103,11 +103,10 @@ public class Main {
     // Đảo số
     static int daoNguocSo(int number) {
         int soDaoNguoc = 0;
-        int result = number;
-        while (result > 0) {
-            int chuSoCuoi = result % 10;
+        while (number > 0) {
+            int chuSoCuoi = number % 10;
             soDaoNguoc = soDaoNguoc * 10 + chuSoCuoi;
-            result = result / 10;
+            number = number / 10;
         }
         return soDaoNguoc;
     }
@@ -135,10 +134,83 @@ public class Main {
             System.out.println();
         }
     }
+
+    // In tam giác cân
+    static void inTamGiacCan(int chieuCao) {
+        for (int i = 0; i < chieuCao; i++) {
+            for (int j = 0; j < chieuCao * 2 - 1; j++) {
+                if (j >= chieuCao - 1 - i && j <= chieuCao - 1 + i) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    // In hình thoi
+    static void inHinhThoi(int chieuCao) {
+        // 1. Xác định cột chính giữa (Ví dụ chieuCao = 5 thì cotGiua = 2)
+        int cotGiua = chieuCao / 2;
+
+        for (int i = 0; i < chieuCao; i++) {
+            // Tổng số cột của hình thoi bằng đúng chiều cao của nó
+            for (int j = 0; j < chieuCao; j++) {
+
+                // NỬA TRÊN (i <= cotGiua)
+                if (i <= cotGiua) {
+                    if (j >= cotGiua - i && j <= cotGiua + i) {
+                        System.out.print("*");
+                    } else {
+                        System.out.print(" ");
+                    }
+                }
+                // NỬA DƯỚI (i > cotGiua)
+                else {
+                    // Tính độ xòe mới giảm dần theo hàng i (như bạn đã tìm ra)
+                    int doXoeMoi = (chieuCao - 1) - i;
+
+                    if (j >= cotGiua - doXoeMoi && j <= cotGiua + doXoeMoi) {
+                        System.out.print("*");
+                    } else {
+                        System.out.print(" ");
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
+        // In hình thoi
+        inHinhThoi(5);
+        //Bài tính các tổng chữ số
+        int number = 1030;
+        int tong = sumChuSo(number);
+        System.out.println("Tổng các chữ số: " + tong);
+
+        //Bài đảo ngược số
+        int soDaoNguoc = daoNguocSo(number);
+        System.out.println("Số đảo ngược của số đã cho là: " + soDaoNguoc);
+
+        //Bài đếm số chữ số
+        long num = 12345678L;
+        int SoChuSo = demChuSo(num);
+        System.out.println("Số chữ số là: " + SoChuSo);
+
+        //in tam giác cân
+        inTamGiacCan(9);
+
         //in tam giác vuông
-        inTamGiacVuong(5);
-// I. Mảng - Array
+        inTamGiacVuong(9);
+
+        //in hình chữ nhật
+        int dai = 10;
+        int rong =5;
+        inHinhChuNhat(dai, rong);
+
+        // I. Mảng - Array
         // Mảng số nguyên
         //cách 1 tạo 1 mảng số nguyên và gán giá trị sẵn
         int[] arrNum = {1, 2, 3, 4, 5, 6, 7};
@@ -181,23 +253,5 @@ public class Main {
         String str = "Cybersoft";
         String result = removeNguyenAm(str);
         System.out.println(result);
-
-        //Bài tính các tổng chữ số
-        int number = 1030;
-        int tong = sumChuSo(number);
-        System.out.println("Tổng các chữ số: " + tong);
-        int soDaoNguoc = daoNguocSo(number);
-        System.out.println("Số đảo ngược của số đã cho là: " + soDaoNguoc);
-
-        long num = 12345678L;
-        int SoChuSo = demChuSo(num);
-        System.out.println("Số chữ số là: " + SoChuSo);
-
-        //in hình chữ nhật
-        int dai = 10;
-        int rong =5;
-//        inHinhChuNhat(dai, rong);
-
-
     }
 }
