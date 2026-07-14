@@ -1,10 +1,13 @@
 package pages;
 
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.ConfigReader;
+import utils.ScreenshotUtil;
 
 public class LoginPage extends BasePage {
     //1. Tìm tên thẻ: input, button, a, p, h1, h2
@@ -26,33 +29,46 @@ public class LoginPage extends BasePage {
     }
 
     public void open() {
-        String url = "https://opensource-demo.orangehrmlive.com/";
-        driver.get(url);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_INPUT));
+        Allure.step("Opening login page", () -> {
+            String url = ConfigReader.get("login.base.url");
+            driver.get(url);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_INPUT));
+            ScreenshotUtil.takeScreenshot(driver, "login_page");
+        });
     }
 
     public void enterUsername(String username) throws InterruptedException {
-        WebElement usernameInput = driver.findElement(USERNAME_INPUT);
-        highlight(usernameInput);
-        usernameInput.sendKeys(username);
-        Thread.sleep(2000);
-        unhighlight(usernameInput);
+        Allure.step("Enter username: " + username, () -> {
+            WebElement usernameInput = driver.findElement(USERNAME_INPUT);
+            highlight(usernameInput);
+            usernameInput.sendKeys(username);
+            ScreenshotUtil.takeScreenshot(driver, "enter_username");
+            Thread.sleep(2000);
+            unhighlight(usernameInput);
+        });
     }
 
     public void enterPassword(String password) throws InterruptedException {
-        WebElement passwordInput = driver.findElement(PASSWORD_INPUT);
-        highlight(passwordInput);
-        passwordInput.sendKeys(password);
-        Thread.sleep(2000);
-        unhighlight(passwordInput);
+        Allure.step("Enter password: ", () -> {
+            WebElement passwordInput = driver.findElement(PASSWORD_INPUT);
+            highlight(passwordInput);
+            passwordInput.sendKeys(password);
+            ScreenshotUtil.takeScreenshot(driver, "enter_password");
+            Thread.sleep(2000);
+            unhighlight(passwordInput);
+        });
     }
 
     public void clickLoginBtn() throws InterruptedException {
-        WebElement loginBtn = driver.findElement(LOGIN_BUTTON);
-        highlight(loginBtn);
-        loginBtn.click();
-        Thread.sleep(2000);
-        unhighlight(loginBtn);
+        Allure.step("Clicking login button", () -> {
+            WebElement loginBtn = driver.findElement(LOGIN_BUTTON);
+            highlight(loginBtn);
+            ScreenshotUtil.takeScreenshot(driver, "click_login_button");
+            Thread.sleep(1000);
+            loginBtn.click();
+            Thread.sleep(1000);
+            unhighlight(loginBtn);
+        });
     }
 
     public void login(String username, String password) throws InterruptedException {

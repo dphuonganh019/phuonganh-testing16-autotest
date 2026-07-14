@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -20,40 +21,46 @@ public class AdminPage extends BasePage{
     }
 
     public void open() {
-        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers");
-        // case 1: doi toi khi xuat hien element userInput thi step tiep theo
-        wait.until(ExpectedConditions.visibilityOfElementLocated(USER_INPUT));
+        Allure.step("Open Admin Page", () -> {
+            driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers");
+        });
     }
 
     public void enterUsername(String username) throws InterruptedException {
-        WebElement userInput = driver.findElement(USER_INPUT);
-        highlight(userInput);
+        Allure.step("Enter username: " + username, () -> {
+            WebElement userInput = wait.until(ExpectedConditions.visibilityOfElementLocated(USER_INPUT));
+            highlight(userInput);
 
-        userInput.sendKeys(username);
-        unhighlight(userInput);
-        Thread.sleep(1000);
+            userInput.sendKeys(username);
+            unhighlight(userInput);
+            Thread.sleep(1000);
+        });
+
     }
 
     public void selectUserRole(String role) throws InterruptedException {
-        WebElement roleSelect = driver.findElement(USER_ROLE_SELECT);
-        highlight(roleSelect);
-        roleSelect.click();
-        unhighlight(roleSelect);
+        Allure.step("Select user role: " + role, () -> {
+            WebElement roleSelect = wait.until(ExpectedConditions.visibilityOfElementLocated(USER_ROLE_SELECT));
+            highlight(roleSelect);
+            roleSelect.click();
+            unhighlight(roleSelect);
 
-
-        WebElement adminRoleOption = driver.findElement(By.xpath(String.format(ROLE_OPTION, role)));
-        highlight(adminRoleOption);
-        adminRoleOption.click();
-        unhighlight(adminRoleOption);
-        Thread.sleep(1000);
+            WebElement adminRoleOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(ROLE_OPTION, role))));
+            highlight(adminRoleOption);
+            adminRoleOption.click();
+            unhighlight(adminRoleOption);
+            Thread.sleep(1000);
+        });
     }
 
     public void clickSearchBtn() throws InterruptedException {
-        WebElement searchBtn = driver.findElement(SEARCH_BUTTON);
-        highlight(searchBtn);
-        searchBtn.click();
-        Thread.sleep(2000);
-        unhighlight(searchBtn);
+        Allure.step("Click search button", () -> {
+            WebElement searchBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(SEARCH_BUTTON));
+            highlight(searchBtn);
+            searchBtn.click();
+            Thread.sleep(2000);
+            unhighlight(searchBtn);
+        });
     }
 
     public void filterByUser(String username, String role) throws InterruptedException {
@@ -63,14 +70,16 @@ public class AdminPage extends BasePage{
     }
 
     public boolean checkNumberOfRecords() {
-        WebElement recordCountText = driver.findElement(RECORD_COUNT_TXT);
-        String text = recordCountText.getText();
-        int count = Integer.parseInt(text.replaceAll("\\D+",""));
-        System.out.println("Number of records: " + count);
+        return Allure.step("Check number of records", () -> {
+            WebElement recordCountText = wait.until(ExpectedConditions.visibilityOfElementLocated(RECORD_COUNT_TXT));
+            String text = recordCountText.getText();
+            int count = Integer.parseInt(text.replaceAll("\\D+",""));
+            System.out.println("Number of records: " + count);
 
-        // findElements tra ve cac list element -> List<WebElement>
-        int countDataRows = driver.findElements(dataRows).size();
+            // findElements tra ve cac list element -> List<WebElement>
+            int countDataRows = driver.findElements(dataRows).size();
 
-        return count == countDataRows;
+            return count == countDataRows;
+        });
     }
 }
