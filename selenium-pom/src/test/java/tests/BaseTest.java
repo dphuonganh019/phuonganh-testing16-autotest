@@ -12,6 +12,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import utils.DriverFactory;
 import utils.ScreenshotUtil;
+import utils.VideoRecorderUtil;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -67,6 +68,7 @@ public class BaseTest {
         waitThreadLocal.set(wait);
 
         // TODO: start recording
+        VideoRecorderUtil.start(testFolderPath);
 
     }
 
@@ -84,6 +86,8 @@ public class BaseTest {
         if (driver != null) {
             driver.quit();
         }
+
+        VideoRecorderUtil.stop(true);
 
         ScreenshotUtil.clear();
         driverThreadLocal.remove();

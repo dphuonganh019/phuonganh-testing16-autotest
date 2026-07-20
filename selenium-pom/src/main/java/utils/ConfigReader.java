@@ -25,6 +25,12 @@ public class ConfigReader {
 
     // define function get value from config.properties
     public static String get(String key) {
+        // uu tien gia tri truyen qua -D (vd: mvn test -Dheadless=true) de CI co the override file config
+        String systemValue = System.getProperty(key);
+        if (systemValue != null && !systemValue.isEmpty()) {
+            return systemValue.trim();
+        }
+
         String value = PROPERTIES.getProperty(key);
 
         if (value == null) {
