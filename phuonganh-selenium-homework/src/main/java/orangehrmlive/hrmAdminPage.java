@@ -39,7 +39,8 @@ public class hrmAdminPage {
     private static final By EMPLOYEE_NAME_HEADER = By.xpath("//div[@role='columnheader'][text() = 'Employee Name']");
     //18
     private static final By BREADCRUMB = By.xpath("//span[contains(@class, 'breadcrumb')]");
-    //19 Bên SideBar.java
+    //19
+    private static final By MENU_BUTTON =  By.xpath("//button[contains(@class, 'main-menu-button')]");
     //20
     private static final By COLLAPSE_SEARCH_FILTER_BUTTON = By.xpath("//div[contains(@class,'filter-header-options')]");
     //21
